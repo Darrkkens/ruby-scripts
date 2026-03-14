@@ -21,6 +21,8 @@ module Modules
         return
       end
 
+
+      
       mode = @output.prompt('Modo [1=portas comuns, 2=versoes de servicos, 3=portas especificas]:').strip
       result = case mode
                when '1'
