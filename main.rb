@@ -12,6 +12,7 @@ require_relative 'modules/docker_audit'
 require_relative 'modules/subdomain_scanner'
 require_relative 'modules/cve_scanner'
 require_relative 'modules/nmap_audit'
+require_relative 'modules/service_monitor_audit'
 
 class SecurityAuditCLI
   MENU_OPTIONS = {
@@ -22,7 +23,8 @@ class SecurityAuditCLI
     '5' => ['Scanner de subdominios', Modules::SubdomainScanner],
     '6' => ['Scanner basico de CVEs', Modules::CVEScanner],
     '7' => ['Integracao com Nmap', Modules::NmapAudit],
-    '8' => ['Sair', nil]
+    '8' => ['Monitoramento de servico systemd', Modules::ServiceMonitorAudit],
+    '9' => ['Sair', nil]
   }.freeze
 
   def run
@@ -50,7 +52,7 @@ class SecurityAuditCLI
     loop do
       print_menu
       choice = @output.prompt('Escolha uma opcao:')
-      break if choice == '8'
+      break if choice == '9'
 
       execute_choice(choice)
       wait_for_return
@@ -67,7 +69,7 @@ class SecurityAuditCLI
   def execute_choice(choice)
     option = MENU_OPTIONS[choice]
     unless option
-      @output.status('Opcao invalida', :warn, 'selecione um numero entre 1 e 8')
+      @output.status('Opcao invalida', :warn, 'selecione um numero entre 1 e 9')
       return
     end
 

@@ -63,6 +63,28 @@ ruby main.rb
 
 Ao iniciar, o programa pergunta se a sessao deve ser salva em `logs/`. Depois disso, apresenta um menu interativo com os modulos de auditoria.
 
+## Monitoramento de servico systemd
+
+Se voce quiser acompanhar um servico como `omni-backend.service`, use o script abaixo:
+
+```bash
+ruby service_monitor.rb --service omni-backend.service
+```
+
+Opcoes uteis:
+
+- `--once`: faz uma checagem unica e sai com codigo `0` se o servico estiver `active/running` ou `1` em caso contrario.
+- `--interval 10`: muda o intervalo entre checagens.
+- `--lines 50`: mostra mais linhas de log quando houver falha ou reinicio.
+
+Exemplo:
+
+```bash
+ruby service_monitor.rb --service omni-backend.service --interval 5 --lines 30
+```
+
+O mesmo monitoramento tambem esta disponivel no menu principal da CLI como a opcao `8`.
+
 ## Resumo dos modulos
 
 ### 1. Deteccao basica de rootkits
@@ -112,6 +134,12 @@ Ao iniciar, o programa pergunta se a sessao deve ser salva em `logs/`. Depois di
 - Modo rapido para portas comuns.
 - Modo com deteccao de servicos.
 - Modo com portas especificas informadas no menu.
+
+### 8. Monitoramento de servico systemd
+
+- Faz checagem unica ou acompanhamento continuo de um servico no `systemd`.
+- Exibe estado atual, PID, reinicios, memoria e CPU acumulada.
+- Mostra erros e logs recentes quando o servico falha ou reinicia.
 
 ## Observacoes de seguranca
 
